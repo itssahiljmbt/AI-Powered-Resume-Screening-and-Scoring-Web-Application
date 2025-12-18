@@ -1,65 +1,55 @@
 # AI-Powered Resume Analyzer & ATS Scoring System
 
-An **AI-enabled resume screening and analysis web application** built using **Flask (Python)** that evaluates resumes against job descriptions. The system provides **ATS-style keyword matching scores**, **missing skill analysis**, and **AI-driven insights** such as resume summaries, strengths, weaknesses, interview questions, and improvement suggestions using **Google Gemini AI**.
+An **AI-enabled resume screening web application** built using **Flask (Python)** that analyzes resumes against job descriptions. The system provides an **ATS-style keyword matching score**, identifies **matched and missing skills**, and leverages **Google Gemini AI** to deliver intelligent resume insights, interview questions, and improvement suggestions.
 
 ---
 
 ## 🚀 Features
 
-### ✅ Resume Parsing
+### ✅ Resume Upload & Text Extraction
 
-* Supports **`.txt`**, **`.pdf`**, and **`.docx`** resume formats
-* Extracts raw text from uploaded resumes
-* Handles text-based documents efficiently
+* Supports **.txt, .pdf, and .docx** resume formats
+* Extracts clean text from resumes for analysis
 
 ### ✅ ATS Keyword Matching
 
-* Extracts relevant keywords from:
-
-  * Job Description
-  * Resume content
+* Extracts keywords from job descriptions and resumes
 * Calculates a **matching score (0–100%)**
-* Displays:
+* Shows:
 
-  * ✅ Matched keywords
+  * ✔️ Matched keywords
   * ❌ Missing keywords
 
 ### ✅ AI Resume Analysis (Gemini AI)
 
-* Generates a **concise resume summary**
-* Identifies **key strengths**
-* Highlights **areas of improvement**
-* Output returned in structured **JSON format**
+* Generates:
+
+  * Resume summary
+  * Key strengths
+  * Areas of improvement
+* Returns structured **JSON responses**
 
 ### ✅ AI Interview Question Generator
 
-* Generates **5–7 tailored interview questions**
-* Covers:
-
-  * Technical skills
-  * Behavioral scenarios
-  * Role-specific situations
+* Produces **5–7 role-specific interview questions**
+* Covers technical, behavioral, and situational aspects
 
 ### ✅ Resume Improvement Suggestions
 
-* Provides **actionable resume enhancement tips**
-* Focuses on:
-
-  * Missing keywords
-  * Content alignment
-  * Presentation quality
+* Provides actionable suggestions to improve ATS compatibility
+* Focuses on content, keywords, and alignment with the job role
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Component          | Technology              |
+| Layer              | Technology              |
 | ------------------ | ----------------------- |
 | Backend            | Flask (Python)          |
+| Frontend           | HTML (Flask Templates)  |
 | Resume Parsing     | PyPDF2, python-docx     |
 | AI Model           | Google Gemini 2.0 Flash |
-| API Communication  | Requests                |
-| Frontend           | HTML (Flask Templates)  |
+| API Calls          | Requests                |
 | Keyword Extraction | Regex-based NLP         |
 
 ---
@@ -67,12 +57,10 @@ An **AI-enabled resume screening and analysis web application** built using **Fl
 ## 📁 Project Structure
 
 ```
+.
 ├── app.py
 ├── templates/
 │   └── index.html
-├── static/
-│   └── (CSS/JS if any)
-├── requirements.txt
 └── README.md
 ```
 
@@ -87,11 +75,11 @@ git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 ```
 
-### 2️⃣ Create a Virtual Environment (Recommended)
+### 2️⃣ (Optional) Create Virtual Environment
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+source venv/bin/activate     # Windows: venv\Scripts\activate
 ```
 
 ### 3️⃣ Install Dependencies
@@ -100,16 +88,19 @@ source venv/bin/activate   # On Windows: venv\Scripts\activate
 pip install flask requests PyPDF2 python-docx
 ```
 
-### 4️⃣ Add Google Gemini API Key
+---
 
-Replace the placeholder in `app.py`:
+## 🔑 Google Gemini API Key Setup
+
+Update the API key inside `app.py`:
 
 ```python
 GOOGLE_API_KEY = "YOUR_GOOGLE_GEMINI_API_KEY"
 ```
 
 > ⚠️ **Security Note:**
-> Do NOT expose your API key in public repositories. Use environment variables in production.
+> Never expose API keys in public repositories.
+> Use environment variables for production deployments.
 
 ---
 
@@ -119,7 +110,7 @@ GOOGLE_API_KEY = "YOUR_GOOGLE_GEMINI_API_KEY"
 python app.py
 ```
 
-The server will start at:
+Access the application at:
 
 ```
 http://127.0.0.1:5000/
@@ -135,36 +126,18 @@ http://127.0.0.1:5000/
 
 **Form Data**
 
-* `resume_file`: `.txt / .pdf / .docx`
-
-**Response**
-
-```json
-{
-  "extracted_text": "Resume content here"
-}
-```
+* `resume_file`: `.txt`, `.pdf`, or `.docx`
 
 ---
 
-### 🔹 ATS Resume Scoring
+### 🔹 Resume ATS Scoring
 
 **POST** `/score_resume`
 
 ```json
 {
-  "job_description": "JD text",
-  "resume_text": "Resume text"
-}
-```
-
-**Response**
-
-```json
-{
-  "score": 78.5,
-  "matched_keywords": ["python", "flask"],
-  "missing_keywords": ["docker", "aws"]
+  "job_description": "Job description text",
+  "resume_text": "Extracted resume text"
 }
 ```
 
@@ -174,32 +147,17 @@ http://127.0.0.1:5000/
 
 **POST** `/analyze_resume_ai`
 
-**Response**
+Returns:
 
-```json
-{
-  "summary": "Candidate has strong backend experience...",
-  "strengths": ["Python expertise", "API development"],
-  "weaknesses": ["Limited cloud exposure"]
-}
-```
+* Resume summary
+* Strengths
+* Weaknesses
 
 ---
 
-### 🔹 Interview Question Generator
+### 🔹 Generate Interview Questions
 
 **POST** `/generate_interview_questions`
-
-**Response**
-
-```json
-{
-  "questions": [
-    "Explain your experience with Flask.",
-    "How do you handle API security?"
-  ]
-}
-```
 
 ---
 
@@ -207,32 +165,20 @@ http://127.0.0.1:5000/
 
 **POST** `/suggest_resume_improvements`
 
-**Response**
-
-```json
-{
-  "suggestions": [
-    "Add cloud-related projects.",
-    "Include more quantified achievements."
-  ]
-}
-```
-
 ---
 
 ## 🎯 Use Cases
 
-* ATS resume screening systems
-* HR tech platforms
-* College placement portals
-* Resume evaluation tools
-* Interview preparation platforms
+* ATS Resume Screening Systems
+* HR & Recruitment Platforms
+* College Placement Portals
+* Interview Preparation Tools
 
 ---
 
 ## ⚠️ Limitations
 
-* Keyword extraction is regex-based (not deep NLP)
+* Keyword matching is regex-based (not semantic NLP)
 * Works best with text-based PDFs
 * AI features require an active Gemini API key
 
@@ -240,10 +186,9 @@ http://127.0.0.1:5000/
 
 ## 🔮 Future Enhancements
 
-* Semantic keyword matching using NLP models
-* Resume ranking across multiple candidates
-* Role-based scoring weightage
-* User authentication & dashboard
+* Semantic keyword matching using NLP
+* Resume ranking for multiple candidates
+* Authentication and dashboard UI
 * Cloud deployment (Docker + AWS/GCP)
 
 ---
@@ -251,9 +196,4 @@ http://127.0.0.1:5000/
 ## 👨‍💻 Author
 
 **Sahil Rathor**
-Computer Science Engineer | AI & Web Developer
-Specialized in Resume Screening Systems, NLP & AI Integration
-
-
-Just tell me 👍
-
+Computer Science Engineer | AI & Backend Developer
